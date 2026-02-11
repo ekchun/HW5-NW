@@ -1,6 +1,7 @@
 # Importing Dependencies
 import pytest
 from align import NeedlemanWunsch, read_fasta
+from main import main
 import numpy as np
 
 def test_nw_alignment():
@@ -14,7 +15,15 @@ def test_nw_alignment():
     """
     seq1, _ = read_fasta("./data/test_seq1.fa")
     seq2, _ = read_fasta("./data/test_seq2.fa")
-    pass
+    nw = NeedlemanWunsch("./substitution_matrices/BLOSUM62.mat", -10, -1)
+    alignment = nw.align(seq1, seq2)
+
+    assert nw._align_matrix[0, 0] == 0
+
+    # Check that the alignment matrices are filled correctly
+    assert nw._align_matrix.shape == (len(seq1) + 1, len(seq2) + 1)
+    assert nw._gapA_matrix.shape == (len(seq1) + 1, len(seq2) + 1)
+    assert nw._gapB_matrix.shape == (len(seq1) + 1, len(seq2) + 1)
     
 
 def test_nw_backtrace():
@@ -27,8 +36,11 @@ def test_nw_backtrace():
     """
     seq3, _ = read_fasta("./data/test_seq3.fa")
     seq4, _ = read_fasta("./data/test_seq4.fa")
-    pass
+    nw = NeedlemanWunsch("./substitution_matrices/BLOSUM62.mat", -10, -1)
 
-
-
-
+    alignment = nw.align(seq3, seq4)
+    score = alignment[0]
+    
+    assert score == 17
+    assert alignment[1] == "MAVHQLIRRP"
+    assert alignment[2] == "M---QLIRHP"
