@@ -9,6 +9,7 @@ Struggleeee with this one, I think I was getting myself confused with all of the
 - chat (RIP)
 
 Appreciated the unit testing because that also really helped me with troubleshooting. Anyway.
+* I'm realizing I probably was also getting confused because of the affine vs linear gap penalty scoring? 
 
 # Assignment Overview
 The purpose of this assigment is to have you implement the Needleman-Wunsch global pairwise sequence alignment algorithm (dynamic programming).
